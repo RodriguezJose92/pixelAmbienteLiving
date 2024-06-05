@@ -492,7 +492,7 @@ class MudiPixel{
 const 
 mudiPixel = new MudiPixel();
 window.mudiPixel = mudiPixel;
-MudiPixel.pixelMudiOn();
+mudiPixel.pixelMudiOn();
 
 
 /** https://www.toptal.com/developers/javascript-minifier */
