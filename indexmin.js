@@ -12,7 +12,7 @@ class MudiPixel{
         this.date                           = null; //✔️
         this.timeInSession                  = null; //✔️
         this.skuNumber                      = null; //✔️
-        this.idCompany                      = 147;  //🟠
+        this.idCompany                      = 383;  //🟠
 
         /** Events interaction buttons  */
         this.viewerEvent                    = 0; //✔️
@@ -33,6 +33,7 @@ class MudiPixel{
         this.verifyContainerMudiBtns        = 0; //✔️
         this.btnARVerify                    = 0; //✔️
         this.verifySkuNumber                = 0; //✔️
+        this.flagMudi                       = false;  //✔️ 
 
     };
 
@@ -82,7 +83,7 @@ class MudiPixel{
 
             /** Declared DOM Element */
             let 
-            element         = document.body.querySelector(`.cart-add`); // CUSTOM ELEMENT ✔️
+            element         = document.body.querySelector(`.vtex-add-to-cart-button-0-x-buttonDataContainer`); // CUSTOM ELEMENT ✔️
 
             /** End process verify  */
             if(this.verifyAddToCarButton > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","The button to add to cart was not found ❌"); return false;};
@@ -100,7 +101,7 @@ class MudiPixel{
 
             /** Declared DOM BreadCrumb*/
             let 
-            breadcrumb         = document.body.querySelector(`.breadcrumb`); // CUSTOM ELEMENT breadcrumb
+            breadcrumb         = document.body.querySelector(`.ambientegourmet-breadcrumb-2-x-link`); // CUSTOM ELEMENT breadcrumb
 
             /** End process verify  */
             if(this.verifyBreadcrumb  > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","Breadcrumb was not found ❌"); return false};
@@ -117,7 +118,7 @@ class MudiPixel{
 
             /** Declared btn Purchase*/
             let 
-            purchaseBtn         = document.body.querySelector(`.send-event-purchase`); // CUSTOM ELEMENT breadcrumb
+            purchaseBtn         = document.body.querySelector(`.btn-go-to-payment `); // CUSTOM ELEMENT breadcrumb
 
             /** Verify purcahseBtn*/
             if(this.verifyPurchaseButton  > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","Purchase was not found ❌"); return false};
@@ -125,6 +126,7 @@ class MudiPixel{
             /** Add Event Purchase || Resend  */
             purchaseBtn 
             ? ( purchaseBtn.addEventListener('click',()=> { this.purchaseClick ++}) , 
+                this.flagMudi = true;
                 this.verifyproductInteractive3D(),
                 console.log("%cMudi Pixel: \n","color:#820ad1; font-weight:600","Purchase Correctly setting 🚀" ) ) 
             : ( requestAnimationFrame(this.verifyPurchase.bind(this)) , this.verifyPurchaseButton++  );
@@ -159,7 +161,7 @@ class MudiPixel{
 
             /** Declared DOM Container Btns*/
             let 
-            containerBtnsMudi         = document.body.querySelector(`.btnsMudiContainer`); // CUSTOM ELEMENT Container Btns
+            containerBtnsMudi         = document.body.querySelector(`.ContainerBtnsMudi`); // CUSTOM ELEMENT Container Btns
 
             /** End process verify  */
             if( this.verifyContainerMudiBtns > 1500) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","Container Btns Mudi was not found ❌"); return false};
@@ -167,6 +169,7 @@ class MudiPixel{
             /** Add Evento addToCar || Resend  */
             containerBtnsMudi 
             ? ( 
+                this.flagMudi = true,
                 this.viewerEvent ++ , 
                 document.body.querySelector('.btnMudi3D').addEventListener('click',()=>{
                     this.interaction3D++;
@@ -183,7 +186,7 @@ class MudiPixel{
 
             /** Declared DOM Container Btns*/
             let 
-            btnAR         = document.body.querySelector(`.imgBtnAR`), // CUSTOM ELEMENT btn AR
+            btnAR         = document.body.querySelector(`.btnMudiAR`), // CUSTOM ELEMENT btn AR
             flagControl   = false;
 
             /** End process verify  */
@@ -203,7 +206,7 @@ class MudiPixel{
 
             /** Declared DOM Container Btns*/
             let 
-            skuContainer         = document.body.querySelector(`.btnsMudiContainer`)// CUSTOM ELEMENT TEXT SKU
+            skuContainer         = document.body.querySelector(`.vtex-product-identifier-0-x-product-identifier__value`)// CUSTOM ELEMENT TEXT SKU
 
             /** End process verify  */
             if( this.btnARVerify > 1500) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","SkuNumber was not found ❌"); return false};
@@ -429,11 +432,13 @@ class MudiPixel{
                     testType        : this.testType
                 };
 
+                if (flagMudi == true){
                 const request = fetch('https://viewer.mudi.com.co:3589/api/mudiv1/registryPixelMudi',{
-                    method:'POST',
-                    headers:{"Content-type":"application/json"},
-                    body: JSON.stringify(bodyToSend)
-                })
+                method:'POST',
+                headers:{"Content-type":"application/json"},
+                body: JSON.stringify(bodyToSend)
+                 })
+               }
    
             })
 
@@ -487,7 +492,7 @@ class MudiPixel{
 const 
 mudiPixel = new MudiPixel();
 window.mudiPixel = mudiPixel;
-console.log('Mudi Pixel OFF -- configuration process ... ')
+MudiPixel.pixelMudiOn();
 
 
 /** https://www.toptal.com/developers/javascript-minifier */
