@@ -101,7 +101,7 @@ class MudiPixel{
 
             /** Declared DOM BreadCrumb*/
             let 
-            breadcrumb         = document.body.querySelector(`.ambientegourmet-breadcrumb-2-x-link`); // CUSTOM ELEMENT breadcrumb
+            breadcrumb         = document.body.querySelector(`[data-testid="breadcrumb"]`); // CUSTOM ELEMENT breadcrumb
 
             /** End process verify  */
             if(this.verifyBreadcrumb  > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","Breadcrumb was not found ❌"); return false};
