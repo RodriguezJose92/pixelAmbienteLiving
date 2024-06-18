@@ -107,8 +107,8 @@ class MudiPixel{
             if(this.verifyBreadcrumb  > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","Breadcrumb was not found ❌"); return false};
             /** Add Evento addToCar || Resend  */
             breadcrumb 
-            ? ( this.category       = breadcrumb.children[1].innerText, 
-                this.subCategory    = breadcrumb.children[2].innerText, 
+            ? ( this.category       = breadcrumb.children[2].innerText, 
+                this.subCategory    = breadcrumb.children[3].innerText, 
                 console.log("%cMudi Pixel: \n","color:#820ad1; font-weight:600","Category Correctly setting 🚀" ) ) 
             : ( requestAnimationFrame(this.verifyCategory.bind(this)) , this.verifyBreadcrumb ++  );
         };
@@ -214,7 +214,7 @@ class MudiPixel{
             /** Add Evento addToCar || Resend  */
             skuContainer 
             ? ( 
-                this.skuNumber = skuContainer.getAttribute('skunumber'),
+                this.skuNumber = skuContainer.getAttribute('skunumber').innerHTML,
                 console.log("%cMudi Pixel: \n","color:#820ad1; font-weight:600","SkuNumber Correctly setting 🚀" ) ) 
             : ( requestAnimationFrame(this.verifySku.bind(this)) , this.verifySkuNumber ++  );
 
