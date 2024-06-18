@@ -214,7 +214,7 @@ class MudiPixel{
             /** Add Evento addToCar || Resend  */
             skuContainer 
             ? ( 
-                this.skuNumber = skuContainer.getAttribute('skunumber').innerHTML,
+                this.skuNumber = skuContainer.innerHTML,
                 console.log("%cMudi Pixel: \n","color:#820ad1; font-weight:600","SkuNumber Correctly setting 🚀" ) ) 
             : ( requestAnimationFrame(this.verifySku.bind(this)) , this.verifySkuNumber ++  );
 
