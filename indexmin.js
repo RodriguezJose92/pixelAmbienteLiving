@@ -409,35 +409,38 @@ class MudiPixel{
         };
 
         /* Event beforeUnload */
-        addEventBeforeUnload(){
+      addEventBeforeUnload(){
 
-            window.addEventListener('beforeunload', e => {
+            window.addEventListener('beforeunload', e => this.senDataMudiServer )
 
-                let bodyToSend      = {
-                    userID          : this.userID,
-                    path            : this.path,
-                    device          : this.device,
-                    detailDevice    : this.detailDevice,
-                    dateMudi        : this.date,
-                    timeInSession   : this.timeInSession,
-                    viewEvent       : this.viewerEvent,
-                    interaction3D   : this.interaction3D,
-                    interactionAR   : this.interactionAR,
-                    addToCar        : this.addToCar,
-                    purchaseClick   : this.purchaseClick,
-                    category        : this.category,
-                    subCategory     : this.subCategory,
-                    skuNumber       : this.skuNumber,
-                    idCompany       : this.idCompany,
-                    testType        : this.testType
-                };
+        };
 
-                const request = fetch('https://viewer.mudi.com.co:3589/api/mudiv1/registryPixelMudi',{
+        /** SendData ServerMudi */
+        senDataMudiServer(){
+
+            let bodyToSend      = {
+                userID          : this.userID,
+                path            : this.path,
+                device          : this.device,
+                detailDevice    : this.detailDevice,
+                dateMudi        : this.date,
+                timeInSession   : this.timeInSession,
+                viewEvent       : this.viewerEvent,
+                interaction3D   : this.interaction3D,
+                interactionAR   : this.interactionAR,
+                addToCar        : this.addToCar,
+                purchaseClick   : this.purchaseClick,
+                category        : this.category,
+                subCategory     : this.subCategory,
+                skuNumber       : this.skuNumber,
+                idCompany       : this.idCompany,
+                testType        : this.testType
+            };
+
+            const request = fetch('https://viewer.mudi.com.co:3589/api/mudiv1/registryPixelMudi',{
                 method:'POST',
                 headers:{"Content-type":"application/json"},
                 body: JSON.stringify(bodyToSend)
-                })
-   
             })
 
         };
@@ -479,13 +482,26 @@ class MudiPixel{
                 this.timeSesion(),
 
                 /* event To Send */
-                this.addEventBeforeUnload()
+                this.addEventBeforeUnload();
+                this.verifyURL();
 
         );        
 
     };
 
 };
+
+    verifyURL(){
+
+        if (this.path !== window.location.href ) {
+            this.senDataMudiServer();
+            this.cleanObject();
+            this.pixelMudiOn();
+            return;
+        }else{
+            requestAnimationFrame(this.verifyURL)
+        }
+    }
 
 const 
 mudiPixel = new MudiPixel();
