@@ -482,7 +482,7 @@ class MudiPixel{
                 this.timeSesion(),
 
                 /* event To Send */
-                this.addEventBeforeUnload();
+                this.addEventBeforeUnload(),
                 this.verifyURL();
 
         );        
