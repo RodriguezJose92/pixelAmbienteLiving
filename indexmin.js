@@ -483,13 +483,11 @@ class MudiPixel{
 
                 /* event To Send */
                 this.addEventBeforeUnload(),
-                this.verifyURL();
+                this.verifyURL()
 
         );        
 
     };
-
-};
 
     verifyURL(){
 
