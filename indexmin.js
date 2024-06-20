@@ -493,7 +493,6 @@ class MudiPixel{
 
         if (this.path !== window.location.href ) {
             this.senDataMudiServer();
-            this.cleanObject();
             this.pixelMudiOn();
             return;
         }else{
