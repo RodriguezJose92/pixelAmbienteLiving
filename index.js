@@ -33,6 +33,7 @@ class MudiPixel{
         this.verifyContainerMudiBtns        = 0; //✔️
         this.btnARVerify                    = 0; //✔️
         this.verifySkuNumber                = 0; //✔️
+        this.flagMudi                       = false;  //✔️ 
 
     };
 
@@ -82,7 +83,7 @@ class MudiPixel{
 
             /** Declared DOM Element */
             let 
-            element         = document.body.querySelector(`.vtex-add-to-cart-button-0-x-buttonText`); // CUSTOM ELEMENT ✔️
+            element         = document.body.querySelector(`.vtex-add-to-cart-button-0-x-buttonDataContainer`); // CUSTOM ELEMENT ✔️
 
             /** End process verify  */
             if(this.verifyAddToCarButton > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","The button to add to cart was not found ❌"); return false;};
@@ -100,7 +101,7 @@ class MudiPixel{
 
             /** Declared DOM BreadCrumb*/
             let 
-            breadcrumb         = document.body.querySelector(`.ambientegourmet-breadcrumb-2-x-container`); // CUSTOM ELEMENT breadcrumb
+            breadcrumb         = document.body.querySelector(`[data-testid="breadcrumb"]`)); // CUSTOM ELEMENT breadcrumb
 
             /** End process verify  */
             if(this.verifyBreadcrumb  > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","Breadcrumb was not found ❌"); return false};
@@ -117,7 +118,7 @@ class MudiPixel{
 
             /** Declared btn Purchase*/
             let 
-            purchaseBtn         = document.body.querySelector(`.send-event-purchase`); // CUSTOM ELEMENT breadcrumb
+            purchaseBtn         = document.body.querySelector(`.btn-go-to-payment `); // CUSTOM ELEMENT breadcrumb
 
             /** Verify purcahseBtn*/
             if(this.verifyPurchaseButton  > 5000) { console.log("%cMudiPixel:\n","color:#820ad1; font-weight:600","Purchase was not found ❌"); return false};
@@ -170,10 +171,7 @@ class MudiPixel{
                 this.viewerEvent ++ , 
                 document.body.querySelector('.btnMudi3D').addEventListener('click',()=>{
                     this.interaction3D++;
-                    this.verifyDataProducst();
-                }) ,
-                document.body.querySelector('.btnMudiAR').addEventListener('click',()=>{
-                    this.interactionAR++;
+                    this.verifyBtnAR();
                     this.verifyDataProducst();
                 }) ,
                 console.log("%cMudi Pixel: \n","color:#820ad1; font-weight:600","Container Btns Mudi Correctly setting 🚀" ) ) 
@@ -186,7 +184,7 @@ class MudiPixel{
 
             /** Declared DOM Container Btns*/
             let 
-            btnAR         = document.body.querySelector(`.imgBtnAR`), // CUSTOM ELEMENT btn AR
+            btnAR         = document.body.querySelector(`.btnMudiAR`), // CUSTOM ELEMENT btn AR
             flagControl   = false;
 
             /** End process verify  */
@@ -214,7 +212,7 @@ class MudiPixel{
             /** Add Evento addToCar || Resend  */
             skuContainer 
             ? ( 
-                this.skuNumber = document.body.querySelector(`.vtex-product-identifier-0-x-product-identifier__value`).innerHTML,
+                 this.skuNumber = skuContainer.innerHTML,
                 console.log("%cMudi Pixel: \n","color:#820ad1; font-weight:600","SkuNumber Correctly setting 🚀" ) ) 
             : ( requestAnimationFrame(this.verifySku.bind(this)) , this.verifySkuNumber ++  );
 
