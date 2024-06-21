@@ -135,7 +135,7 @@ class MudiPixel{
             /** 3.1 Verify interaction with products 3D Experience */
             verifyproductInteractive3D(){
                 
-                const allProductsSkus = document.body.querySelectorAll('.media-content-details');
+                const allProductsSkus = document.body.querySelectorAll('.cart');
                 if( allProductsSkus.length == 0){requestAnimationFrame(this.verifyproductInteractive3D.bind(this))};
                 let arrayList = [];
 
