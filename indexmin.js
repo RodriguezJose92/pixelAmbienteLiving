@@ -446,46 +446,37 @@ class MudiPixel{
         };
 
 
-    /** TurnOn pixel Mudi */
+ /** TurnOn pixel Mudi */
     async pixelMudiOn(){
 
-        await this.identifyUserMudi();
+        /** DOM VERIFY */
 
-        this.userID && (
+            /** Verify  add To Car */
+            this.verifyAddToCar();
+            /** Verify Categories */
+            this.verifyCategory();
+            /** Verify skuNumber */
+            this.verifySku();
+            /** Verify Ourchase */
+            this.verifyPurchase();
 
-            /** Verify Testing AB */
-                this.verifyTestingAB(),
+            /** Verify PDP 3D Btn And Evetns interaction 3D  & AR  */
+            this.verifyContainerBtnsMudi();
 
-            /** DOM VERIFY */
+        /** INFO GENERAL  */
 
-                /** Verify  add To Car */
-                this.verifyAddToCar(),
-                /** Verify Categories */
-                this.verifyCategory(),
-                /** Verify skuNumber */
-                this.verifySku(),
-                /** Verify Ourchase */
-                this.verifyPurchase(),
+            /* Get Path direction */
+            this.getPath();
+            /* Recognized device */
+            this.recognizeDevice();
+            /* Get Date */
+            this.getDate();
+            /* get Time in Session */ 
+            this.timeSesion();
 
-                /** Verify PDP 3D Btn And Evetns interaction 3D  & AR  */
-                this.verifyContainerBtnsMudi(),
-
-            /** INFO GENERAL  */
-
-                /* Get Path direction */
-                this.getPath(),
-                /* Recognized device */
-                this.recognizeDevice(),
-                /* Get Date */
-                this.getDate(),
-                /* get Time in Session */ 
-                this.timeSesion(),
-
-                /* event To Send */
-                this.addEventBeforeUnload(),
-                this.verifyURL()
-
-        );        
+            /* event To Send */
+            this.addEventBeforeUnload();
+            this.verifyURL();
 
     };
 
@@ -493,6 +484,7 @@ class MudiPixel{
 
         if (this.path !== window.location.href ) {
             this.senDataMudiServer();
+            this.cleanObject();
             this.pixelMudiOn();
             return;
         }else{
@@ -500,10 +492,44 @@ class MudiPixel{
         }
     }
 
+    cleanObject(){
+        /** General Info  */
+        this.testType                       = null; 
+        this.userID                         = null; //✔️ 
+        this.path                           = null; //✔️
+        this.device                         = null; //✔️
+        this.detailDevice                   = null; //✔️
+        this.date                           = null; //✔️
+        this.timeInSession                  = null; //✔️
+        this.skuNumber                      = null; //✔️
+        this.idCompany                      = 383;  //🟠
+
+        /** Events interaction buttons  */
+        this.viewerEvent                    = 0; //✔️
+        this.interaction3D                  = 0; //✔️
+        this.interactionAR                  = 0; //✔️
+
+        this.addToCar                       = 0; //✔️
+        this.purchaseClick                  = 0; //✔️
+
+        /** Element DOM Verify and SEND */
+        this.category                       = null; //✔️✔️
+        this.subCategory                    = null; //✔️✔️
+
+        /** VerifyDoms -- Counters */
+        this.verifyAddToCarButton           = 0; //✔️
+        this.verifyBreadcrumb               = 0; //✔️
+        this.verifyPurchaseButton           = 0; //✔️
+        this.verifyContainerMudiBtns        = 0; //✔️
+        this.btnARVerify                    = 0; //✔️
+        this.verifySkuNumber                = 0; //✔️
+    };
+
+};
+
 const 
 mudiPixel = new MudiPixel();
 window.mudiPixel = mudiPixel;
 mudiPixel.pixelMudiOn();
-
 
 /** https://www.toptal.com/developers/javascript-minifier */
