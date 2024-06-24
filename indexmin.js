@@ -132,29 +132,42 @@ class MudiPixel{
             : ( requestAnimationFrame(this.verifyPurchase.bind(this)) , this.verifyPurchaseButton++  );
         };
 
-            /** 3.1 Verify interaction with products 3D Experience */
-            verifyproductInteractive3D(){
+           /** 3.1 Verify interaction with products 3D Experience */
+verifyproductInteractive3D() {
+    const allProductsCarts = document.body.querySelectorAll('.cart');
+    
+    if (allProductsCarts.length == 0) {
+        requestAnimationFrame(this.verifyproductInteractive3D.bind(this));
+        return;
+    }
+
+    let arrayList = [];
+
+    for (let i = 0; i < allProductsCarts.length; i++) {
+        // Get the image element inside the cart
+        let imgElement = allProductsCarts[i].querySelector('img');
+        
+        if (imgElement) {
+            // Extract SKU from the src attribute
+            let src = imgElement.getAttribute('src');
+            let skuMatch = src.match(/\/(\d+)\.jpg/);
+            let productSKU = skuMatch ? skuMatch[1] : null;
+            
+            if (productSKU) {
+                const listProductStorage = JSON.parse(localStorage.getItem('productsMudi'));
+                if (!listProductStorage) return;
                 
-                const allProductsSkus = document.body.querySelectorAll('.cart');
-                if( allProductsSkus.length == 0){requestAnimationFrame(this.verifyproductInteractive3D.bind(this))};
-                let arrayList = [];
+                const filter = listProductStorage.find(registry => productSKU.trim() == registry.sku.trim());
+                if (!filter) return;
 
-                for(let i = 0; i<allProductsSkus.length; i++){
+                arrayList.push(filter);
+            }
+        }
+    }
+    console.log(skuNumber),
+    this.skuNumber = JSON.stringify(arrayList);
+}
 
-                    /** Get SKU NUMBER --- Cards product to Pay */
-                    let productSKU = allProductsSkus[i].querySelector('.col-xs-10').innerHTML;
-
-                    const listProductStorage = JSON.parse(localStorage.getItem('productsMudi'));
-                    if(!listProductStorage) return;
-                
-                    const filter = listProductStorage.find( registry => productSKU.trim() == registry.sku.trim() );
-                    if(!filter) return;
-
-                    arrayList.push(filter);                
-                };
-
-                this.skuNumber = JSON.stringify(arrayList)
-            };
             
         /** 4. Verify container Btns Mudi PDP ✔️ */
         verifyContainerBtnsMudi(){
