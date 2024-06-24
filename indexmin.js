@@ -496,6 +496,7 @@ verifyproductInteractive3D() {
     verifyURL(){
 
         if (this.path !== window.location.href ) {
+            this.path = window.location.href;
             this.senDataMudiServer();
             this.cleanObject();
             this.pixelMudiOn();
