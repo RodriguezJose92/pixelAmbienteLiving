@@ -489,6 +489,7 @@ verifyproductInteractive3D() {
 
             /* event To Send */
             this.addEventBeforeUnload();
+            this.senDataMudiServer();
             this.verifyURL();
 
     };
